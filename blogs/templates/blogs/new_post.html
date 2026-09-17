@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <h1 class="mb-3">Новая публикация</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% bootstrap_button button_type="submit" content="Опубликовать" %}
+            <a class="btn btn-secondary ml-2" href="{% url 'blogs:index' %}">Отмена</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
