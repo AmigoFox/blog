@@ -7,6 +7,259 @@
     <title>Blog</title>
     {% bootstrap_css %}
     {% bootstrap_javascript jquery='full' %}
+    <style>
+        :root {
+            --ink: #20253a;
+            --muted: #788096;
+            --accent: #6558d3;
+            --accent-dark: #5145bd;
+            --surface: #ffffff;
+            --page: #f5f6fb;
+            --line: #e8eaf2;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(ellipse at 90% 0%, rgba(101, 88, 211, .09), transparent 35rem),
+                var(--page);
+            color: var(--ink);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        .navbar {
+            min-height: 72px;
+            background: rgba(32, 37, 58, .97) !important;
+            box-shadow: 0 8px 28px rgba(29, 33, 53, .12);
+        }
+
+        .navbar-brand {
+            font-size: 1.3rem;
+            font-weight: 750;
+            letter-spacing: -.04em;
+        }
+
+        .navbar-brand::before {
+            content: "B";
+            display: inline-grid;
+            width: 32px;
+            height: 32px;
+            margin-right: 9px;
+            place-items: center;
+            border-radius: 10px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 1rem;
+            letter-spacing: 0;
+        }
+
+        .navbar .nav-link,
+        .navbar .navbar-text {
+            color: rgba(255, 255, 255, .78) !important;
+            font-size: .92rem;
+        }
+
+        .navbar .nav-link:hover,
+        .navbar .btn-link:hover {
+            color: #fff !important;
+        }
+
+        main.container {
+            max-width: 920px;
+            padding-top: 24px;
+            padding-bottom: 64px;
+        }
+
+        h1 {
+            color: var(--ink);
+            font-size: clamp(1.8rem, 4vw, 2.35rem);
+            font-weight: 750;
+            letter-spacing: -.045em;
+        }
+
+        .page-heading {
+            margin-bottom: 28px !important;
+        }
+
+        .btn {
+            border-radius: 10px;
+            font-weight: 600;
+            transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-success,
+        .btn-primary {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .btn-success:hover,
+        .btn-primary:hover {
+            border-color: var(--accent-dark);
+            background: var(--accent-dark);
+        }
+
+        .btn-outline-primary {
+            border-color: #d6d2f7;
+            color: var(--accent-dark);
+        }
+
+        .btn-outline-primary:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+
+        .post-card {
+            margin-bottom: 18px !important;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--surface);
+            box-shadow: 0 8px 24px rgba(34, 39, 65, .045);
+            transition: box-shadow .18s ease, transform .18s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(34, 39, 65, .09);
+        }
+
+        .post-card .card-body {
+            padding: 26px 28px;
+        }
+
+        .post-card .card-title {
+            margin-bottom: 9px;
+            color: var(--ink);
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -.025em;
+        }
+
+        .post-card .post-meta {
+            margin-bottom: 17px;
+            color: var(--muted) !important;
+            font-size: .85rem;
+        }
+
+        .post-card .card-text:not(.post-meta) {
+            color: #4d5368;
+            line-height: 1.75;
+        }
+
+        .post-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 20px;
+        }
+
+        .post-actions form {
+            margin: 0;
+        }
+
+        .form-panel {
+            padding: 32px;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--surface);
+            box-shadow: 0 12px 36px rgba(34, 39, 65, .07);
+        }
+
+        .form-panel h1 {
+            margin-bottom: 24px !important;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            margin-bottom: 7px;
+            color: #41475d;
+            font-size: .92rem;
+            font-weight: 650;
+        }
+
+        .form-control {
+            min-height: 44px;
+            border: 1px solid #dfe2ec;
+            border-radius: 10px;
+            color: var(--ink);
+        }
+
+        textarea.form-control {
+            min-height: 160px;
+        }
+
+        .form-control:focus {
+            border-color: #9c94e8;
+            box-shadow: 0 0 0 .2rem rgba(101, 88, 211, .13);
+        }
+
+        .alert {
+            border: 0;
+            border-radius: 12px;
+        }
+
+        .empty-state {
+            padding: 44px 24px;
+            border: 1px dashed #d6d9e6;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, .7);
+            color: var(--muted);
+            text-align: center;
+        }
+
+        @media (max-width: 575.98px) {
+            .navbar {
+                min-height: 62px;
+                padding: 10px 0;
+            }
+
+            .navbar .navbar-text {
+                display: none;
+            }
+
+            .navbar .nav-link {
+                padding-right: .4rem;
+                padding-left: .4rem;
+                font-size: .82rem;
+            }
+
+            .navbar .btn-link {
+                margin-left: .5rem !important;
+                font-size: .82rem;
+            }
+
+            main.container {
+                padding-top: 18px;
+            }
+
+            .page-heading {
+                align-items: flex-start !important;
+                gap: 14px;
+            }
+
+            .page-heading .btn {
+                flex-shrink: 0;
+                font-size: .85rem;
+            }
+
+            .post-card .card-body {
+                padding: 21px;
+            }
+
+            .form-panel {
+                padding: 24px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand navbar-dark bg-dark mb-4">

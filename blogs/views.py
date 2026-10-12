@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import BlogPostForm
@@ -35,3 +36,11 @@ def edit_post(request, post_id):
     else:
         form = BlogPostForm(instance=post)
     return render(request, 'blogs/edit_post.html', {'form': form, 'post': post})
+
+
+@login_required
+@require_POST
+def delete_post(request, post_id):
+    post = get_object_or_404(BlogPost, id=post_id, owner=request.user)
+    post.delete()
+    return redirect('blogs:index')
